@@ -4,7 +4,7 @@
 #+      - Correlates of War
 #+      - Gleditsch and Ward (1999)
 #+      - http://nils.weidmann.ws/projects/cshapes.html
-#+ endpoint: https://api.druid.datalegend.net/datasets/RubenS/Spanjestrijders-test/services/Spanjestrijders-test/sparql
+#+ endpoint: https://api.druid.datalegend.net/datasets/nlgis/cshapes/services/cshapes/sparql
 
 
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
