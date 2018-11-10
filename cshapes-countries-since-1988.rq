@@ -13,7 +13,7 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT ?wkt (concat('hsv,', ?age) as ?wktColor) (concat(?name, '(',?isoCode,'): ', ?startDate) as ?wktLabel) WHERE {  
+SELECT ?wkt (concat('hsv,', ?age) as ?wktColor) (concat(?name, ' (',?isoCode,'): ', ?startDate) as ?wktLabel) WHERE {  
   ?country rdf:type iisgv:CountrySlice .
   ?country iisgv:isoName ?name .
   ?country iisgv:isoNumber ?isoCode .
