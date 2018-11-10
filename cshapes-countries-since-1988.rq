@@ -1,0 +1,29 @@
+#+ summary: Countries with border changes since 1988. Best viewed as map in https://yasgui.org
+#+ tags:
+#+      - CShapes
+#+      - Correlates of War
+#+      - Gleditsch and Ward (1999)
+#+      - http://nils.weidmann.ws/projects/cshapes.html
+#+ endpoint: https://api.druid.datalegend.net/datasets/RubenS/Spanjestrijders-test/services/Spanjestrijders-test/sparql
+
+
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX iisgv: <https://iisg.amsterdam/vocab/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?wkt (concat('hsv,', ?age) as ?wktColor) (concat(?name, '(',?isoCode,'): ', ?startDate) as ?wktLabel) WHERE {  
+  ?country rdf:type iisgv:CountrySlice .
+  ?country iisgv:isoName ?name .
+  ?country iisgv:isoNumber ?isoCode .
+  ?country geo:hasGeometry/geo:asWKT ?wkt .
+  ?country iisgv:cowStart ?startDate .
+  OPTIONAL{?country iisgv:wgStart ?startDate} .
+  BIND(replace(str(?startDate),"(\\d+)-\\d*-\\d*", "$1") as ?year) .
+  BIND(xsd:float(xsd:integer(?year) - 1988)/30 as ?age) .
+  BIND(xsd:dateTime(?startDate) as ?startDateTime) .
+  FILTER(xsd:dateTime(?startDateTime) >= '1988-01-01T00:00:00Z'^^xsd:dateTime &&
+         xsd:dateTime(?startDateTime) <= '2017-12-12T23:59:59Z'^^xsd:dateTime) .
+}
+LIMIT 100
